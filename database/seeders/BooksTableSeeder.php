@@ -12,7 +12,7 @@ class BooksTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 6; $i++) {
             DB::table('bookstore')->insert([
                 'title' => $faker->sentence(3),
                 'author' => $faker->name,
