@@ -12,11 +12,4 @@ Antes de começar, verifique se você possui as seguintes ferramentas instaladas
 - [Servidor Web](https://www.php.net/manual/pt_BR/install.unix.php#install.unix.apache) (como Apache ou Nginx)
 - [Banco de Dados](https://www.mysql.com/) (MySQL, PostgreSQL, etc.)
 
-## Clonando o Repositório
 
-1. Abra o terminal.
-2. Navegue até o diretório onde deseja clonar o projeto.
-3. Execute o comando:
-
-   ```bash
-   git clone https://github.com/seu-usuario/nome-do-repositorio.git
