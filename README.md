@@ -1,7 +1,3 @@
-# Nome do Projeto
-
-Este é um projeto Laravel que foi desenvolvido para [descrever brevemente a finalidade do projeto]. Siga as instruções abaixo para configurar e executar o projeto em sua máquina local.
-
 ## Pré-requisitos
 
 Antes de começar, verifique se você possui as seguintes ferramentas instaladas:
