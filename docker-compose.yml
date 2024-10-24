@@ -28,11 +28,11 @@ services:
       SERVICE_NAME: mysql
     volumes:
       - ./docker-compose/mysql:/docker-entrypoint-initdb.d
-      - db_data:/var/lib/mysql  # Persistência dos dados do MySQL
+      - db_data:/var/lib/mysql 
     networks:
       - my-laravel-rede
     env_file:
-      - .env  # Para garantir que as variáveis de ambiente sejam lidas do .env
+      - .env
 
   nginx:
     image: nginx:alpine
@@ -43,6 +43,18 @@ services:
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - my-laravel-rede
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: my-phpmyadmin
+    restart: unless-stopped
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: 123
+    ports:
+      - 8800:80
     networks:
       - my-laravel-rede
 
