@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthRequest;
 use App\Http\Services\AuthService;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
+use App\Models\User;
 
 class AuthController extends Controller
 {
@@ -16,14 +19,21 @@ class AuthController extends Controller
     }
 
 
-    public function login(AuthRequest $request): JsonResponse
+    public function login(AuthRequest $request)
     {
-        $token = $this->authService->login($request->validated());
+        $user = User::where('email', $request->email)->first();
 
-        if (!$token) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
         }
 
-        return response()->json(['token' => $token]);
+        $user->tokens()->delete();
+        $user = $user->createToken($request->email)->plainTextToken;
+
+        return response()->json([
+            'token' => $user,
+        ]);
     }
 }
