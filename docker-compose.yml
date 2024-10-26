@@ -21,14 +21,9 @@ services:
     image: mysql:8.0
     container_name: my-laravel-db
     restart: unless-stopped
-    environment:
-      MYSQL_ROOT_PASSWORD: 123
-      MYSQL_DATABASE: bookstore_db
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
     volumes:
       - ./docker-compose/mysql:/docker-entrypoint-initdb.d
-      - db_data:/var/lib/mysql 
+      - db_data:/var/lib/mysql
     networks:
       - my-laravel-rede
     env_file:
