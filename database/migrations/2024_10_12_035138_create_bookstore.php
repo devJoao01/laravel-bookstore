@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('bookstore', function (Blueprint $table) {
             $table->id();
+            $table->string('image')->nullable();
             $table->string('title');
             $table->string('author');
             $table->string('isbn');
