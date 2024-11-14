@@ -8,6 +8,7 @@ use App\Http\Services\AuthService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -21,19 +22,11 @@ class AuthController extends Controller
 
     public function login(AuthRequest $request)
     {
-        $user = User::where('email', $request->email)->first();
-
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            throw ValidationException::withMessages([
-                'email' => ['The provided credentials are incorrect.'],
-            ]);
+        $credentials = $request->all();
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return Auth::user();
         }
-
-        $user->tokens()->delete();
-        $user = $user->createToken($request->email)->plainTextToken;
-
-        return response()->json([
-            'token' => $user,
-        ]);
+        return false;
     }
 }
